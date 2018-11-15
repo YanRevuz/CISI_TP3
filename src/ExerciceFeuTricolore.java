@@ -260,22 +260,21 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                 /* Interdit */
                 break;
             case ROUGE:
-                changeState(State.ETIENT);
+                changeState(State.ORANGE_ALLUME);
                 stopRedTimer();
-                startPauseOffTimer();
+                startPauseOnTimer();
                 repaint();
                 break;
             case ORANGE:
-                changeState(State.ETIENT
-                );
+                changeState(State.ORANGE_ALLUME);
                 stopOrangeTimer();
-                startPauseOffTimer();
+                startPauseOnTimer();
                 repaint();
                 break;
             case VERT:
-                changeState(State.ETIENT);
+                changeState(State.ORANGE_ALLUME);
                 stopGreenTimer();
-                startPauseOffTimer();
+                startPauseOnTimer();
                 repaint();
                 break;
             case ORANGE_ALLUME:
