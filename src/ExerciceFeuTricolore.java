@@ -1,6 +1,5 @@
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -17,7 +16,7 @@ import javax.swing.Timer;
  */
 public class ExerciceFeuTricolore extends javax.swing.JFrame {
     
-    //Tous les etat de notre Automate
+     //Tous les etat de notre Automate
     private enum State {
         ARRET, //etat initial
         ROUGE,
@@ -26,8 +25,7 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
         ORANGE_ALLUME,
         ETIENT
     }
-    
-    
+     
     /* Etat en cours*/
     private State etatEnCours;
     
@@ -60,9 +58,8 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
     
     /* Le timer du feu orange en panne eteint de notre application */
     private Timer panneOffTimer;
-    
     /**
-     * Creates new form ExerciceFeuTricolore
+     * Creates new form Feu
      */
     public ExerciceFeuTricolore() {
         initComponents();
@@ -70,6 +67,9 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
     }
     
     public void init(){
+        this.ampouleRouge.setColor(Color.RED);
+        this.ampouleVert.setColor(Color.GREEN);
+        this.ampouleOrange.setColor(Color.ORANGE);
         this.redTimer = new Timer(DELAY_TIMER_RED, taskPerformerRed);
         this.greenTimer = new Timer(DELAY_TIMER_VERT, taskPerformerGreen);
         this.orangeTimer = new Timer(DELAY_TIMER_ORANGE, taskPerformerOrange);
@@ -151,8 +151,6 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
     public void stopPauseOffTimer(){
         this.panneOffTimer.stop();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -163,11 +161,47 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ampouleRouge = new Ampoule();
+        ampouleVert = new Ampoule();
+        ampouleOrange = new Ampoule();
         onButton = new javax.swing.JButton();
         pauseButton = new javax.swing.JButton();
         offButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout ampouleRougeLayout = new javax.swing.GroupLayout(ampouleRouge);
+        ampouleRouge.setLayout(ampouleRougeLayout);
+        ampouleRougeLayout.setHorizontalGroup(
+            ampouleRougeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 71, Short.MAX_VALUE)
+        );
+        ampouleRougeLayout.setVerticalGroup(
+            ampouleRougeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 69, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout ampouleVertLayout = new javax.swing.GroupLayout(ampouleVert);
+        ampouleVert.setLayout(ampouleVertLayout);
+        ampouleVertLayout.setHorizontalGroup(
+            ampouleVertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 71, Short.MAX_VALUE)
+        );
+        ampouleVertLayout.setVerticalGroup(
+            ampouleVertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 73, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout ampouleOrangeLayout = new javax.swing.GroupLayout(ampouleOrange);
+        ampouleOrange.setLayout(ampouleOrangeLayout);
+        ampouleOrangeLayout.setHorizontalGroup(
+            ampouleOrangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
+        ampouleOrangeLayout.setVerticalGroup(
+            ampouleOrangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
 
         onButton.setText("Marche");
         onButton.addActionListener(new java.awt.event.ActionListener() {
@@ -176,14 +210,14 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
             }
         });
 
-        pauseButton.setText("Pause");
+        pauseButton.setText("Panne");
         pauseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pauseButtonActionPerformed(evt);
             }
         });
 
-        offButton.setText("Arrêt");
+        offButton.setText("Arret");
         offButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 offButtonActionPerformed(evt);
@@ -195,23 +229,46 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(onButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pauseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(offButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(303, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(onButton)
+                    .addComponent(pauseButton)
+                    .addComponent(offButton))
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(ampouleOrange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ampouleVert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(ampouleRouge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(onButton)
-                .addGap(50, 50, 50)
-                .addComponent(pauseButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addComponent(offButton)
-                .addGap(63, 63, 63))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(ampouleRouge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(onButton)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(ampouleOrange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(pauseButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ampouleVert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(offButton)
+                        .addGap(44, 44, 44))))
         );
 
         pack();
@@ -225,7 +282,10 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
             case ARRET:
                 changeState(State.ROUGE);
                 startRedTimer();
-                repaint();
+                ampouleRouge.turnON();
+                ampouleOrange.turnOFF();
+                ampouleVert.turnOFF();
+                //repaint();
                 break;
             case ROUGE:
                 /* Interdit */
@@ -240,13 +300,17 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                 changeState(State.ROUGE);
                 stopPauseOnTimer();
                 startRedTimer();
-                repaint();
+                ampouleRouge.turnON();
+                ampouleOrange.turnOFF();
+                ampouleVert.turnOFF();
                 break;
             case ETIENT:
                 changeState(State.ROUGE);
                 stopPauseOffTimer();
                 startRedTimer();
-                repaint();
+                ampouleRouge.turnON();
+                ampouleOrange.turnOFF();
+                ampouleVert.turnOFF();
                 break;    
         }
     }//GEN-LAST:event_onButtonActionPerformed
@@ -263,19 +327,25 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                 changeState(State.ORANGE_ALLUME);
                 stopRedTimer();
                 startPauseOnTimer();
-                repaint();
+                ampouleRouge.turnOFF();
+                ampouleOrange.turnON();
+                ampouleVert.turnOFF();
                 break;
             case ORANGE:
                 changeState(State.ORANGE_ALLUME);
                 stopOrangeTimer();
                 startPauseOnTimer();
-                repaint();
+                ampouleRouge.turnOFF();
+                ampouleOrange.turnON();
+                ampouleVert.turnOFF();
                 break;
             case VERT:
                 changeState(State.ORANGE_ALLUME);
                 stopGreenTimer();
                 startPauseOnTimer();
-                repaint();
+                ampouleRouge.turnOFF();
+                ampouleOrange.turnON();
+                ampouleVert.turnOFF();
                 break;
             case ORANGE_ALLUME:
                 /* Interdit */
@@ -297,31 +367,41 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
             case ROUGE:
                 changeState(State.ARRET);
                 stopRedTimer();
-                repaint();
+                ampouleRouge.turnOFF();
+                ampouleOrange.turnOFF();
+                ampouleVert.turnOFF();
                 break;
             case ORANGE:
                 changeState(State.ARRET);
                 stopOrangeTimer();
-                repaint();
+                ampouleRouge.turnOFF();
+                ampouleOrange.turnOFF();
+                ampouleVert.turnOFF();
                 break;
             case VERT:
                 changeState(State.ARRET);
                 stopGreenTimer();
-                repaint();
+                ampouleRouge.turnOFF();
+                ampouleOrange.turnOFF();
+                ampouleVert.turnOFF();
                 break;
             case ORANGE_ALLUME:
                 changeState(State.ARRET);
                 stopPauseOnTimer();
-                repaint();
+                ampouleRouge.turnOFF();
+                ampouleOrange.turnOFF();
+                ampouleVert.turnOFF();
                 break;
             case ETIENT:
                 changeState(State.ARRET);
                 stopPauseOffTimer();
-                repaint();
+                ampouleRouge.turnOFF();
+                ampouleOrange.turnOFF();
+                ampouleVert.turnOFF();
                 break;    
         }
     }//GEN-LAST:event_offButtonActionPerformed
-    
+
     /* Déclaration des action réalisées lors d'un tic du timer rouge */
     ActionListener taskPerformerRed = new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
@@ -333,7 +413,9 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                     changeState(State.VERT);
                     stopRedTimer();
                     startGreenTimer();
-                    repaint();
+                    ampouleRouge.turnOFF();
+                    ampouleOrange.turnOFF();
+                    ampouleVert.turnON();
                     break;
                 case ORANGE:
                     /* Interdit */
@@ -368,7 +450,9 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                     changeState(State.ORANGE);
                     stopGreenTimer();
                     startOrangeTimer();
-                    repaint();
+                    ampouleRouge.turnOFF();
+                    ampouleOrange.turnON();
+                    ampouleVert.turnOFF();
                     break;
                 case ORANGE_ALLUME:
                     /* Interdit */
@@ -394,7 +478,9 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                     changeState(State.ROUGE);
                     stopOrangeTimer();
                     startRedTimer();
-                    repaint();
+                    ampouleRouge.turnON();
+                    ampouleOrange.turnOFF();
+                    ampouleVert.turnOFF();
                     break;
                 case VERT:
                     /* Interdit */
@@ -429,7 +515,9 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                     changeState(State.ETIENT);
                     stopPauseOnTimer();
                     startPauseOffTimer();
-                    repaint();
+                    ampouleRouge.turnOFF();
+                    ampouleOrange.turnOFF();
+                    ampouleVert.turnOFF();
                     break;
                 case ETIENT:
                     /* Interdit */
@@ -461,66 +549,14 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                     changeState(State.ORANGE_ALLUME);
                     stopPauseOffTimer();
                     startPauseOnTimer();
-                    repaint();
+                    ampouleRouge.turnOFF();
+                    ampouleOrange.turnON();
+                    ampouleVert.turnOFF();
                     break;    
             }
         }
     };
     
-    public void rougeOn(Graphics g){
-        g.setColor(Color.RED);
-        g.fillOval( 200, 60, 50, 50 );
-        g.setColor(Color.BLACK);
-        g.drawOval(200, 150, 50, 50);
-        g.drawOval(200, 240, 50, 50);  
-    }
-    
-    public void vertOn(Graphics g){
-        g.setColor(Color.GREEN);
-        g.fillOval(200, 240, 50, 50);  
-        g.setColor(Color.BLACK);
-        g.drawOval( 200, 60, 50, 50 );
-        g.drawOval(200, 150, 50, 50);   
-    }
-    
-    public void orangeOn(Graphics g){
-        g.setColor(Color.ORANGE);
-        g.fillOval(200, 150, 50, 50);
-        g.setColor(Color.BLACK);
-        g.drawOval( 200, 60, 50, 50 );
-        g.drawOval(200, 240, 50, 50);  
-    }
-    
-    public void allEteint(Graphics g){
-        g.setColor(Color.BLACK);
-        g.drawOval( 200, 60, 50, 50 );
-        g.drawOval(200, 150, 50, 50);
-        g.drawOval(200, 240, 50, 50);  
-    }
-    
-    public void paint(Graphics g) {
-        super.paint(g);
-        switch(etatEnCours){
-            case ARRET:
-                allEteint(g);
-                break;
-            case ROUGE:
-                rougeOn(g);
-                break;
-            case ORANGE:
-                orangeOn(g);
-                break;
-            case VERT:
-                vertOn(g);
-                break;
-            case ORANGE_ALLUME:
-                orangeOn(g);
-                break;
-            case ETIENT:
-                allEteint(g);
-                break;
-        }
-    }
     /**
      * @param args the command line arguments
      */
@@ -547,6 +583,7 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ExerciceFeuTricolore.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -555,8 +592,13 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Ampoule ampouleOrange;
+    private Ampoule ampouleRouge;
+    private Ampoule ampouleVert;
     private javax.swing.JButton offButton;
     private javax.swing.JButton onButton;
     private javax.swing.JButton pauseButton;
