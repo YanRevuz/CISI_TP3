@@ -28,7 +28,7 @@ public class Ampoule extends javax.swing.JPanel {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         if (switchedON) {
             g.setColor(color);
-            g.fillOval(200, 150, 50, 50);
+            g.fillOval(0, 0, getWidth(), getHeight());
         } else {
             g.setColor(Color.DARK_GRAY);
             g.fillOval(0, 0, getWidth(), getHeight());

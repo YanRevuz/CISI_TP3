@@ -75,10 +75,7 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
         this.orangeTimer = new Timer(DELAY_TIMER_ORANGE, taskPerformerOrange);
         this.panneOnTimer = new Timer(DELAY_TIMER_PAUSE_ON, taskPerformerPanneOn);
         this.panneOffTimer = new Timer(DELAY_TIMER_PAUSE_OFF, taskPerformerPanneOff);
-        setEnabledOnButton(true);
-        setEnabledOffButton(false);
-        setEnabledPauseButton(false);
-        changeState(State.ARRET);
+        eteindreFeu();
     }
     
     /* Permet de desactiver / activer le boutton marche*/
@@ -150,6 +147,154 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
     /* Permet d'interrompre le timer pauseOff */
     public void stopPauseOffTimer(){
         this.panneOffTimer.stop();
+    }
+    
+    /* Eteint toutes les ampoule */
+    public void eteindreAmpoules(){
+        ampouleRouge.turnOFF();
+        ampouleOrange.turnOFF();
+        ampouleVert.turnOFF();
+    }
+    
+    /* Allume l'ampoule Rouge Eteint les ampoules orange et vert */
+    public void allumerRougeEteindreOrangeVert(){
+        ampouleRouge.turnON();
+        ampouleOrange.turnOFF();
+        ampouleVert.turnOFF();
+    }
+    
+    /* Allume l'ampoule orange Eteint les ampoules rouge et vert */
+    public void allumerOrangeEteindreRougeVert(){
+        ampouleRouge.turnOFF();
+        ampouleOrange.turnON();
+        ampouleVert.turnOFF();
+    }
+    
+    /* Allume l'ampoule vert Eteint les ampoules orange et rouge */
+    public void allumerVertEteindreOrangeRouge(){
+        ampouleRouge.turnOFF();
+        ampouleOrange.turnOFF();
+        ampouleVert.turnON();
+    }
+    
+    public void eteindreFeu(){
+        /* Passer dans l'état arret */
+        changeState(State.ARRET);
+        
+        /* Stop les timer */
+        stopGreenTimer();
+        stopOrangeTimer();
+        stopRedTimer();
+        stopPauseOffTimer();
+        stopPauseOnTimer();
+        
+        /*Eteint les ampoules */
+        eteindreAmpoules();
+        
+        /*Set les bouttons */
+        setEnabledOffButton(false);
+        setEnabledOnButton(true);
+        setEnabledPauseButton(false);
+    }
+    
+    public void allumerFeuRouge(){
+        /* Passer dans l'etat rouge */
+        changeState(State.ROUGE);
+        
+        /* Demarre le timer rouge */
+        stopGreenTimer();
+        stopOrangeTimer();
+        startRedTimer();
+        stopPauseOffTimer();
+        stopPauseOnTimer();
+ 
+        /* Allume l'ampoule rouge on eteint les autre */
+        allumerRougeEteindreOrangeVert();
+        
+        /* Set les buttons */
+        setEnabledOffButton(true);
+        setEnabledOnButton(false);
+        setEnabledPauseButton(true);
+    }
+    
+    public void allumerFeuOrange(){
+        /* Passer dans l'etat orange */
+        changeState(State.ORANGE);
+        
+        /* Demarre le timer orange */
+        stopGreenTimer();
+        startOrangeTimer();
+        stopRedTimer();
+        stopPauseOffTimer();
+        stopPauseOnTimer();
+ 
+        /* Allume l'ampoule orange on eteint les autre */
+        allumerOrangeEteindreRougeVert();
+        
+        /* Set les buttons */
+        setEnabledOffButton(true);
+        setEnabledOnButton(false);
+        setEnabledPauseButton(true);
+    }
+    
+    public void allumerFeuVert(){
+        /* Passer dans l'etat vert */
+        changeState(State.VERT);
+        
+        /* Demarre le timer vert */
+        startGreenTimer();
+        stopOrangeTimer();
+        stopRedTimer();
+        stopPauseOffTimer();
+        stopPauseOnTimer();
+ 
+        /* Allume l'ampoule vert on eteint les autre */
+        allumerVertEteindreOrangeRouge();
+        
+        /* Set les buttons */
+        setEnabledOffButton(true);
+        setEnabledOnButton(false);
+        setEnabledPauseButton(true);
+    }
+    
+    public void allumerFeuPanne(){
+        /* Passer dans l'etat orange allumé */
+        changeState(State.ORANGE_ALLUME);
+        
+        /* Demarre le timer orange allumé */
+        stopGreenTimer();
+        stopOrangeTimer();
+        stopRedTimer();
+        stopPauseOffTimer();
+        startPauseOnTimer();
+ 
+        /* Allume l'ampoule orange on eteint les autre */
+        allumerOrangeEteindreRougeVert();
+        
+        /* Set les buttons */
+        setEnabledOffButton(true);
+        setEnabledOnButton(true);
+        setEnabledPauseButton(false);
+    }
+    
+    public void eteindreFeuPanne(){
+        /* Passer dans l'etat eteint */
+        changeState(State.ETIENT);
+        
+        /* Demarre le timer orange eteint */
+        stopGreenTimer();
+        stopOrangeTimer();
+        stopRedTimer();
+        startPauseOffTimer();
+        stopPauseOnTimer();
+ 
+        /* on eteint les ampoules */
+        eteindreAmpoules();
+        
+        /* Set les buttons */
+        setEnabledOffButton(true);
+        setEnabledOnButton(true);
+        setEnabledPauseButton(false);
     }
 
     /**
@@ -275,17 +420,9 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void onButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onButtonActionPerformed
-        setEnabledOnButton(false);
-                setEnabledOffButton(true);
-                setEnabledPauseButton(true);
         switch(etatEnCours){
             case ARRET:
-                changeState(State.ROUGE);
-                startRedTimer();
-                ampouleRouge.turnON();
-                ampouleOrange.turnOFF();
-                ampouleVert.turnOFF();
-                //repaint();
+                allumerFeuRouge();
                 break;
             case ROUGE:
                 /* Interdit */
@@ -297,55 +434,27 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                 /* Interdit */
                 break;
             case ORANGE_ALLUME:
-                changeState(State.ROUGE);
-                stopPauseOnTimer();
-                startRedTimer();
-                ampouleRouge.turnON();
-                ampouleOrange.turnOFF();
-                ampouleVert.turnOFF();
+                allumerFeuRouge();
                 break;
             case ETIENT:
-                changeState(State.ROUGE);
-                stopPauseOffTimer();
-                startRedTimer();
-                ampouleRouge.turnON();
-                ampouleOrange.turnOFF();
-                ampouleVert.turnOFF();
+                allumerFeuRouge();
                 break;    
         }
     }//GEN-LAST:event_onButtonActionPerformed
 
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
-        setEnabledOnButton(true);
-        setEnabledOffButton(true);
-        setEnabledPauseButton(false);
         switch(etatEnCours){
             case ARRET:
                 /* Interdit */
                 break;
             case ROUGE:
-                changeState(State.ORANGE_ALLUME);
-                stopRedTimer();
-                startPauseOnTimer();
-                ampouleRouge.turnOFF();
-                ampouleOrange.turnON();
-                ampouleVert.turnOFF();
+                allumerFeuPanne();
                 break;
             case ORANGE:
-                changeState(State.ORANGE_ALLUME);
-                stopOrangeTimer();
-                startPauseOnTimer();
-                ampouleRouge.turnOFF();
-                ampouleOrange.turnON();
-                ampouleVert.turnOFF();
+                allumerFeuPanne();
                 break;
             case VERT:
-                changeState(State.ORANGE_ALLUME);
-                stopGreenTimer();
-                startPauseOnTimer();
-                ampouleRouge.turnOFF();
-                ampouleOrange.turnON();
-                ampouleVert.turnOFF();
+                allumerFeuPanne();
                 break;
             case ORANGE_ALLUME:
                 /* Interdit */
@@ -365,39 +474,19 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                 /* Interdit */
                 break;
             case ROUGE:
-                changeState(State.ARRET);
-                stopRedTimer();
-                ampouleRouge.turnOFF();
-                ampouleOrange.turnOFF();
-                ampouleVert.turnOFF();
+                eteindreFeu();
                 break;
             case ORANGE:
-                changeState(State.ARRET);
-                stopOrangeTimer();
-                ampouleRouge.turnOFF();
-                ampouleOrange.turnOFF();
-                ampouleVert.turnOFF();
+                eteindreFeu();
                 break;
             case VERT:
-                changeState(State.ARRET);
-                stopGreenTimer();
-                ampouleRouge.turnOFF();
-                ampouleOrange.turnOFF();
-                ampouleVert.turnOFF();
+                eteindreFeu();
                 break;
             case ORANGE_ALLUME:
-                changeState(State.ARRET);
-                stopPauseOnTimer();
-                ampouleRouge.turnOFF();
-                ampouleOrange.turnOFF();
-                ampouleVert.turnOFF();
+                eteindreFeu();
                 break;
             case ETIENT:
-                changeState(State.ARRET);
-                stopPauseOffTimer();
-                ampouleRouge.turnOFF();
-                ampouleOrange.turnOFF();
-                ampouleVert.turnOFF();
+                eteindreFeu();
                 break;    
         }
     }//GEN-LAST:event_offButtonActionPerformed
@@ -410,12 +499,7 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                     /* Interdit */
                     break;
                 case ROUGE:
-                    changeState(State.VERT);
-                    stopRedTimer();
-                    startGreenTimer();
-                    ampouleRouge.turnOFF();
-                    ampouleOrange.turnOFF();
-                    ampouleVert.turnON();
+                    allumerFeuVert();
                     break;
                 case ORANGE:
                     /* Interdit */
@@ -447,12 +531,7 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                     /* Interdit */
                     break;
                 case VERT:
-                    changeState(State.ORANGE);
-                    stopGreenTimer();
-                    startOrangeTimer();
-                    ampouleRouge.turnOFF();
-                    ampouleOrange.turnON();
-                    ampouleVert.turnOFF();
+                    allumerFeuOrange();
                     break;
                 case ORANGE_ALLUME:
                     /* Interdit */
@@ -475,12 +554,7 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                     /* Interdit */
                     break;
                 case ORANGE:
-                    changeState(State.ROUGE);
-                    stopOrangeTimer();
-                    startRedTimer();
-                    ampouleRouge.turnON();
-                    ampouleOrange.turnOFF();
-                    ampouleVert.turnOFF();
+                    allumerFeuRouge();
                     break;
                 case VERT:
                     /* Interdit */
@@ -512,12 +586,7 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                     /* Interdit */
                     break;
                 case ORANGE_ALLUME:
-                    changeState(State.ETIENT);
-                    stopPauseOnTimer();
-                    startPauseOffTimer();
-                    ampouleRouge.turnOFF();
-                    ampouleOrange.turnOFF();
-                    ampouleVert.turnOFF();
+                    eteindreFeuPanne();
                     break;
                 case ETIENT:
                     /* Interdit */
@@ -546,12 +615,7 @@ public class ExerciceFeuTricolore extends javax.swing.JFrame {
                     /* Interdit */
                     break;
                 case ETIENT:
-                    changeState(State.ORANGE_ALLUME);
-                    stopPauseOffTimer();
-                    startPauseOnTimer();
-                    ampouleRouge.turnOFF();
-                    ampouleOrange.turnON();
-                    ampouleVert.turnOFF();
+                    allumerFeuPanne();
                     break;    
             }
         }
